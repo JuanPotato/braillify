@@ -11,7 +11,7 @@ use std::env;
 
 use std::path::Path;
 
-use image::imageops::{dither, BiLevel};
+use image::imageops::{dither, BiLevel, invert};
 
 fn main() {
     let args: Vec<String> = env::args().collect();
@@ -21,6 +21,7 @@ fn main() {
 
     opts.optflag("b", "braille", "output braille, include with -r for both");
     opts.optflag("r", "rect", "output rectangles, will output alone if ran without -b");
+    opts.optflag("i", "invert", "invert b/w image, may look better for some images");
     opts.optflag("h", "help", "print this help menu");
 
     let matches = match opts.parse(&args[1..]) {
@@ -47,6 +48,10 @@ fn main() {
             std::process::exit(1);
         }
     }.to_luma();
+
+    if matches.opt_present("i") {
+        invert(&mut image);
+    }
 
     dither(&mut image, &BiLevel);
     
