@@ -1,0 +1,9 @@
+[package]
+name = "braillify"
+version = "0.1.0"
+authors = ["Hasan Ibraheem <hasantiny@gmail.com>"]
+
+[dependencies]
+image = "0.14.0"
+lazy_static = "0.2"
+getopts = "0.2"
